@@ -34,4 +34,8 @@ app.use('/api', api);
 // app.get('*', (req, res) => res.status(404).send('Not Found'));
 
 await mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/chentech');
+
+await import("./cities-loader.mjs");
+await import("./news-loader.mjs");
+
 app.listen(3000, () => console.log('Server is running on port 3000'));

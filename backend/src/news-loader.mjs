@@ -1,8 +1,6 @@
 import fs from 'fs';
-import mongoose from "mongoose"
 import NewsModel from './models/NewsModel.mjs';
 import CityModel from './models/CityModel.mjs';
-
 
 function readJSONFile(filePath) {
 	return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -15,7 +13,6 @@ async function processDataSet(filePath) {
 		for await (const file of subdir) {
 			const article = readJSONFile(`${filePath}/${dir}/${file}`);
 
-			// console.log(article.uuid);
 			if (!article.title && !article.thread.title)
 				continue;
 
@@ -40,17 +37,16 @@ async function processDataSet(filePath) {
 				date: new Date(article.published),
 				cities: cities,
 			});
+
+			console.log("Inserted Loader", article.uuid);
 		}
 	}
 }
 
-console.log("Connecting to the database...");
-await mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/chentech');
+if ((await NewsModel.countDocuments()) === 0) {
 
-console.log("Processing dataset...");
-await processDataSet('dataset');
+	console.log("Processing dataset...");
+	await processDataSet('dataset');
+}
 
 console.log("Dataset processed successfully!");
-
-await mongoose.disconnect();
-process.exit(0);

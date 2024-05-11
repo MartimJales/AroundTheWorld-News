@@ -28,6 +28,15 @@ COPY ./backend .
 
 COPY --from=frontend /app/dist ./public
 
+RUN chmod +x ./wait-for-db.sh
+# RUN ./wait-for-db.sh mongo 27017
+
+# Populate the database
+# RUN yarn populate:cities
+# RUN yarn populate:news
+
 EXPOSE 3000
+
+# "-c", "yarn", "populate:cities", "&&", "yarn", "populate:news", "&&", "yarn", "start"
 
 CMD ["yarn", "start"]
