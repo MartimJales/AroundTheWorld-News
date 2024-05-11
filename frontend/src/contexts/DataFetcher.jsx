@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react'
 import Spinner from '../components/Spinner'
 import useLoader from '../hooks/useLoader';
 
-import mock from '../mocks/mock'
+import { feed } from '../mocks/mock'
 import { sleep } from '../util/functions';
 
 const DataFetcherContext = createContext()
@@ -19,9 +19,9 @@ function DataFetcher({ children }) {
         //     .catch(err => console.error(err))
         //     .finally(() => setLoading(false))
 
-        await sleep(4000)
+        // await sleep(4000)
 
-        setData(mock)
+        setData(feed)
         setLoading(false)
     }, [])
 
