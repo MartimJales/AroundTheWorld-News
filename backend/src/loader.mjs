@@ -2,14 +2,14 @@ import CityModel from "./models/CityModel.mjs";
 import mongoose from "mongoose";
 import fs from "fs";
 
-await mongoose.connect('mongodb://localhost:27017/chentech');
+await mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/chentech');
 const cities = JSON.parse(fs.readFileSync("./cities.json", "utf-8"));
 
 console.log("Inserting cities into the database...");
 for await (const c of cities) {
     await CityModel.create({
         city: c.city.toLowerCase(),
-	    city_ascii: c.city_ascii.toLowerCase(),
+        city_ascii: c.city_ascii.toLowerCase(),
         location: {
             type: "Point",
             coordinates: [c.lng, c.lat]
@@ -24,3 +24,6 @@ for await (const c of cities) {
     });
 }
 console.log("Cities inserted successfully!")
+
+await mongoose.disconnect();
+process.exit(0);

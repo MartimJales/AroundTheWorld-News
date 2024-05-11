@@ -5,7 +5,7 @@ import CityModel from './models/CityModel.mjs';
 
 
 function readJSONFile(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+	return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
 async function processDataSet(filePath) {
@@ -45,9 +45,12 @@ async function processDataSet(filePath) {
 }
 
 console.log("Connecting to the database...");
-await mongoose.connect('mongodb://localhost:27017/chentech');
+await mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/chentech');
 
 console.log("Processing dataset...");
 await processDataSet('dataset');
 
 console.log("Dataset processed successfully!");
+
+await mongoose.disconnect();
+process.exit(0);
