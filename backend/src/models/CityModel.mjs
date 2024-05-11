@@ -23,6 +23,6 @@ const CitySchema = new Schema({
 	id: {type: String},
 })
 
-
+CitySchema.index({ location: '2dsphere' });
 
 export default model('City', CitySchema)

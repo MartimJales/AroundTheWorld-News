@@ -8,13 +8,13 @@ const cities = JSON.parse(fs.readFileSync("./cities.json", "utf-8"));
 console.log("Inserting cities into the database...");
 for await (const c of cities) {
     await CityModel.create({
-        city: c.city,
-	    city_ascii: c.city_ascii,
+        city: c.city.toLowerCase(),
+	    city_ascii: c.city_ascii.toLowerCase(),
         location: {
             type: "Point",
-            coordinates: [c.lat, c.lng]
+            coordinates: [c.lng, c.lat]
         },
-        country: c.country,
+        country: c.country.toLowerCase(),
         iso2: c.iso2,
         iso3: c.iso3,
         capital: c.capital,
@@ -24,4 +24,3 @@ for await (const c of cities) {
     });
 }
 console.log("Cities inserted successfully!")
-
