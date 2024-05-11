@@ -13,14 +13,16 @@ const LAYERS = ["NEWS", "TRENDS"]
 function LayerRenderer({ data }) {
   return (
     <>
-      {data.map((layer) => (
-        <Circle
-          key={layer.id}
-          center={[cities[layer.city].lat, cities[layer.city].lng]}
-          pathOptions={{ color: layer.color }}
-          radius={layer.radius}
-        />
-      ))}
+      {data.map((layer) => {
+        return (
+          <Circle
+            key={layer.id}
+            center={[layer.location.lat, layer.location.lng]}
+            pathOptions={{ color: layer.color }}
+            radius={layer.radius}
+          />
+        )
+      })}
     </>
   )
 }
@@ -53,7 +55,6 @@ function MapWrapper({ children }) {
     </>
   )
 }
-
 
 function App() {
   const { data } = useDataFetcher();

@@ -10,7 +10,7 @@
     }
 
     .sk-folding-cube {
-        @apply absolute top-[48%] left-[48%] w-[40px] h-[40px];
+        @apply absolute top-[48%] left-[48%] w-[60px] h-[60px];
         -webkit-transform: rotateZ(45deg);
         transform: rotateZ(45deg);
     }
