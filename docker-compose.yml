@@ -17,4 +17,4 @@ services:
     depends_on:
       - mongo
     environment:
-      - MONGO_URL=mongodb://mongo:27017/chentech
+      - MONGO_URL=mongodb://chentech:chentechlda@207.180.250.242:5432/chentech?directConnection=true
