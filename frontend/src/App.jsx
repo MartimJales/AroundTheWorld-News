@@ -64,6 +64,11 @@ function SearchBar() {
     const inputRef = useRef(null);
 
     const handleSearch = (e) => {
+        if(e.target.value === "") {
+            setQueryResults([]);
+            setError(null);
+            return
+        }
         console.log("Searching for", e.target.value);
         const news = feed.NEWS;
         var topResults = [];
@@ -72,7 +77,10 @@ function SearchBar() {
             const obj = news[i];
             if (obj.id.includes(e.target.value) || obj.city.includes(e.target.value)) {
                 topResults.push(obj)
-                results.push(obj.id)
+                if(obj.id === ("paris"))
+                    results.push(obj.id + " - " + obj.country)
+                else
+                    results.push(obj.id)
             }
             if (topResults.length > 5) {
                 break;
@@ -83,6 +91,7 @@ function SearchBar() {
             setQueryResults([]);
             return
         }
+
         setError(null)
         setQueryResults(results);
     };
