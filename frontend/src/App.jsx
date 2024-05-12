@@ -4,6 +4,7 @@ import LayerRenderer from './components/LayerRenderer';
 import MapWrapper from './components/MapWrapper';
 import SearchBar from './components/SearchBar';
 import CategoriesBar from './components/CategoriesBar';
+import CityNews from './components/CityNews';
 
 const LISBON = [38.7223, -9.1393]
 
@@ -12,6 +13,7 @@ function App() {
 
     return (
         <>
+            <CityNews />
             <CategoriesBar />
             <MapContainer
                 className='fixed z-0 top-0 left-0 w-full h-full'
@@ -30,8 +32,9 @@ function App() {
                 <MapWrapper setHoverPoint={setHoverPoint}>
                     <LayerRenderer />
                     <SearchBar />
+
                     <div className='z-[2000] fixed bottom-0 left-0 h-8 bg-gray-100 p-2 flex items-center'>
-                        Lat: {hoverPoint?.lat.toFixed(4)}, Lng: {hoverPoint?.lng.toFixed(4)}
+                        Lat: {hoverPoint?.lat.toFixed(4)}, Lng: {hoverPoint?.lng.toFixed(4)}, City: {hoverPoint?.city}
                     </div>
                 </MapWrapper>
             </MapContainer >

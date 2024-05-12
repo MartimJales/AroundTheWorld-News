@@ -73,6 +73,7 @@ function LayersContext({ children }) {
     const [layers, setLayers] = useState([...layers_default])
     const [points, setPoints] = useState([])
     const [feedPoints, setFeedPoints] = useState([])
+    const [news, setNews] = useState([])
 
     /** Initial Load - (All Feed) */
     useEffect(() => {
@@ -145,7 +146,7 @@ function LayersContext({ children }) {
     }
 
     return (
-        <LayerContext.Provider value={{ layers, handleToggleLayer, points, setPoints }}>
+        <LayerContext.Provider value={{ layers, handleToggleLayer, points, setPoints, news, setNews, setLoading }}>
             {loading
                 ? <Spinner />
                 : children}

@@ -18,7 +18,7 @@ api.get("/feed", async (req, res) => {
 
 	const queryCategories = req.query.categories ? req.query.categories.split(',') : [];
 	const categories = [];
-	queryCategories.forEach(cat => {categories.push(categoryMap[cat])});
+	queryCategories.forEach(cat => { categories.push(categoryMap[cat]) });
 
 	const news = await NewsModel.find({}).populate('cities').lean();
 
@@ -30,7 +30,7 @@ api.get("/feed", async (req, res) => {
 	}
 
 	news.forEach(n => {
-		if (categories.length == 0 || categories.some(cat => n.categories.includes(cat))){
+		if (categories.length == 0 || categories.some(cat => n.categories.includes(cat))) {
 			n.cities.forEach(c => {
 				if (!toReturn.has(c.city)) {
 					toReturn.set(c.city, []);
@@ -58,24 +58,24 @@ api.get("/feed", async (req, res) => {
 
 	console.log(news.length);
 
-    return res.json(returnObject);
+	return res.json(returnObject);
 });
 
 api.get("/news", async (req, res) => {
-	const news = await NewsModel.find({ }).populate('cities');
-	const returnObject = { NEWS: [] };
+	const news = await NewsModel.find({}).populate('cities');
+	const returnObject = [];
 
 	news.forEach(n => {
-		n.cities.forEach( c => {
-			if(c.city === req.query.city){
+		n.cities.forEach(c => {
+			if (c.city === req.query.city) {
 				console.log(n)
-				returnObject.NEWS.push(n);
+				returnObject.push(n);
 			}
 		})
 	})
 
 	console.log(returnObject);
-    res.json(returnObject);
+	res.json(returnObject);
 });
 
 
@@ -97,7 +97,7 @@ api.get("/city", async (req, res) => {
 });
 
 api.get("/healthcheck", (req, res) => {
-    return res.status(200).send("OK!");
+	return res.status(200).send("OK!");
 });
 
 
