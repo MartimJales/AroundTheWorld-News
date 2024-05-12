@@ -15,6 +15,7 @@ const categoryMap = {
 
 api.get("/feed", async (req, res) => {
 
+
 	const queryCategories = req.query.categories ? req.query.categories.split(',') : [];
 	const categories = [];
 	queryCategories.forEach(cat => {categories.push(categoryMap[cat])});
@@ -49,15 +50,15 @@ api.get("/feed", async (req, res) => {
 			id: key,
 			radius: value.length * 1000,
 			city: key,
-			lat: citiesMap.get(key).location.coordinates[1],
-			lng: citiesMap.get(key).location.coordinates[0],
+			lat: citiesMap.get(key).location.coordinates[0],
+			lng: citiesMap.get(key).location.coordinates[1],
 		});
 	})
 
 
 	console.log(news.length);
 
-	return res.json(returnObject);
+    return res.json(returnObject);
 });
 
 api.get("/news", async (req, res) => {
@@ -96,7 +97,7 @@ api.get("/city", async (req, res) => {
 });
 
 api.get("/healthcheck", (req, res) => {
-	return res.status(200).send("OK!");
+    return res.status(200).send("OK!");
 });
 
 
