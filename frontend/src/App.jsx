@@ -64,7 +64,7 @@ function SearchBar() {
     const inputRef = useRef(null);
 
     const handleSearch = (e) => {
-        if(e.target.value === "") {
+        if (e.target.value === "") {
             setQueryResults([]);
             setError(null);
             return
@@ -76,11 +76,9 @@ function SearchBar() {
         for (var i = 0; i < news.length; i++) {
             const obj = news[i];
             if (obj.id.includes(e.target.value) || obj.city.includes(e.target.value)) {
+
                 topResults.push(obj)
-                if(obj.id === ("paris"))
-                    results.push(obj.id + " - " + obj.country)
-                else
-                    results.push(obj.id)
+                results.push(obj.id + " - " + obj.country)
             }
             if (topResults.length > 5) {
                 break;
