@@ -65,10 +65,10 @@ function SearchBar() {
 
     const handleSearch = (e) => {
         console.log("Searching for", e.target.value);
-        const news  = feed.NEWS;
+        const news = feed.NEWS;
         var topResults = [];
         var results = [];
-        for(var i = 0; i < news.length; i++) {
+        for (var i = 0; i < news.length; i++) {
             const obj = news[i];
             if (obj.id.includes(e.target.value) || obj.city.includes(e.target.value)) {
                 topResults.push(obj)
@@ -78,7 +78,7 @@ function SearchBar() {
                 break;
             }
         }
-        if(results.length === 0) {
+        if (results.length === 0) {
             setError("No results found.");
             setQueryResults([]);
             return
@@ -96,7 +96,8 @@ function SearchBar() {
 
     return (
         <div className='fixed h-8 w-[300px] z-[1000] top-2 right-2 flex bg-slate-300 rounded-sm'>
-            <input ref = {inputRef} onChange={handleSearch} className='grow px-2 py-1 bg-transparent outline-none' type="text"/>
+            <input ref={inputRef} onChange={handleSearch} className='grow px-2 py-1 bg-transparent outline-none'
+                   type="text"/>
             <button className='flex items-center justify-center h-full w-8'><Icon icon="search"/></button>
 
             {error && (
@@ -107,11 +108,13 @@ function SearchBar() {
 
             {queryResults.length > 0 && (
                 <div
-                    className='fixed w-[300px] top-11 right-2 p-2 max-h-[200px] overflow-y-auto bg-slate-300 rounded-sm'>
+                    className='fixed w-[300px] top-11 right-2 p-2 max-h-[200px] overflow-y-auto bg-slate-300 rounded-sm'
+                >
                     {/* Generate search results */}
                     <button className="w-full" onClick={(e) => handleSelectResult(e.target.value)}>
                         {queryResults.map(result => (
-                            <option key={result} value={result}>{result}</option>
+                            <option key={result} value={result}
+                                    className='text-left font-sans capitalize border-b border-slate-400'>{result}</option>
                         ))}
                     </button>
                 </div>
