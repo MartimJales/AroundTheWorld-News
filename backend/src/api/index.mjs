@@ -4,9 +4,23 @@ import CityModel from "../models/CityModel.mjs";
 
 const api = Router();
 
+const categoryMap = {
+	"business": "Economy, Business and Finance",
+	"politics": "Politics",
+	"health": "Health",
+	"science": "Science and Technology",
+	"sports": "Sport",
+	"crime": "Crime, Law and Justice"
+}
+
 api.get("/feed", async (req, res) => {
 
-	const news = await NewsModel.find({  }).populate('cities').lean();
+
+	const queryCategories = req.query.categories ? req.query.categories.split(',') : [];
+	const categories = [];
+	queryCategories.forEach(cat => {categories.push(categoryMap[cat])});
+
+	const news = await NewsModel.find({}).populate('cities').lean();
 
 	const toReturn = new Map();
 	const citiesMap = new Map();
@@ -16,15 +30,17 @@ api.get("/feed", async (req, res) => {
 	}
 
 	news.forEach(n => {
-		n.cities.forEach(c => {
-			if (!toReturn.has(c.city)) {
-				toReturn.set(c.city, []);
-			}
-			toReturn.get(c.city).push(n._id);
-			if (!citiesMap.has(c.city)) {
-				citiesMap.set(c.city, c);
-			}
-		});
+		if (categories.length == 0 || categories.some(cat => n.categories.includes(cat))){
+			n.cities.forEach(c => {
+				if (!toReturn.has(c.city)) {
+					toReturn.set(c.city, []);
+				}
+				toReturn.get(c.city).push(n._id);
+				if (!citiesMap.has(c.city)) {
+					citiesMap.set(c.city, c);
+				}
+			});
+		}
 	});
 
 	console.log(toReturn);
@@ -45,21 +61,22 @@ api.get("/feed", async (req, res) => {
     return res.json(returnObject);
 });
 
-// api.get("/news", async (req, res) => {
-//     const city= await CityModel.findOne({ city: req.query.city })
+api.get("/news", async (req, res) => {
+	const news = await NewsModel.find({ }).populate('cities');
+	const returnObject = { NEWS: [] };
 
-//     if(!city){
-//         return res.sendStatus(404);
-// 	}
+	news.forEach(n => {
+		n.cities.forEach( c => {
+			if(c.city === req.query.city){
+				console.log(n)
+				returnObject.NEWS.push(n);
+			}
+		})
+	})
 
-// 	console.log(city);
-// 	console.log(city._id);
-// 	//const news = await NewsModel.find({ cities: {$in: [city._id]} });
-// 	const news = await NewsModel.find({ }).populate('cities');
-
-// 	console.log(news);
-//     res.json(news);
-// });
+	console.log(returnObject);
+    res.json(returnObject);
+});
 
 
 api.get("/city", async (req, res) => {
