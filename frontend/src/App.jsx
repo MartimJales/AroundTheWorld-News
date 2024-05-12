@@ -97,7 +97,8 @@ function SearchBar() {
     };
 
     const handleSelectResult = (city) => {
-        const obj = feed.NEWS.find(obj => obj.id === city);
+        const cityName = city.split(" - ")[0];
+        const obj = feed.NEWS.find(obj => obj.id === cityName);
         map.flyTo([obj.lat, obj.lng], 8)
         setQueryResults([]);
         inputRef.current.value = city;
