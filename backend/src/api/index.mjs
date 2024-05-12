@@ -50,8 +50,8 @@ api.get("/feed", async (req, res) => {
 			id: key,
 			radius: value.length * 1000,
 			city: key,
-			lat: citiesMap.get(key).location.coordinates[0],
-			lng: citiesMap.get(key).location.coordinates[1],
+			lat: citiesMap.get(key).location.coordinates[1],
+			lng: citiesMap.get(key).location.coordinates[0],
 		});
 	})
 
