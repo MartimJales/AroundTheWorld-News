@@ -5,8 +5,7 @@ export const feed = {
             "radius": 153000,
             "city": "paris",
             "lat": 48.8567,
-            "lng": 2.3522,
-            "country": "france"
+            "lng": 2.3522
         },
         {
             "id": "new york",
