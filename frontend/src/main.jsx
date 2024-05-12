@@ -1,14 +1,14 @@
+import './index.css'
+import './leaflet.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
-import './leaflet.css'
-import DataFetcher from './contexts/DataFetcher.jsx'
+import LayersContext from './contexts/LayersContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <DataFetcher>
+    <LayersContext>
       <App />
-    </DataFetcher>
+    </LayersContext>
   </React.StrictMode>,
 )
